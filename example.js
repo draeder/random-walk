@@ -8,7 +8,7 @@ let speed = [{
 }]
 
 walk.on("result", result => {
-    console.log(result)
+    console.log("walk",result)
 })
 
 walk.get("walk", speed)
@@ -34,7 +34,7 @@ let multiplier = getMultiplier(base)
 
 stock.on("result", result => {
     result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
-    console.log(result)
+    console.log("stock",result)
 })
 
 stock.get("walk", speed)
