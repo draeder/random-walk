@@ -1,4 +1,4 @@
-const Walk = require('random-walk')
+const Walk = require('./random-walk')
 
 // Simulate a random walk
 const walk = new Walk
@@ -37,4 +37,4 @@ stock.on("result", result => {
     console.log("stock",result)
 })
 
-stock.get("walk", speed)
+stock.get("walk")
