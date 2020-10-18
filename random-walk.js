@@ -75,7 +75,7 @@ function randomWalk(walk, min, max) {
         value += boxMullerRandom()
         
         walk.emit("result", value)
-        setTimeout(ontimeout, speed(min,max))
+        setTimeout(ontimeout, speed(min,max) || 300)
     })()
 
     return points;

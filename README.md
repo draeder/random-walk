@@ -3,19 +3,25 @@ Generate a stream of trend-oriented random numbers using a Box Muller transform.
 
 Useful for generating sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a stream of trend-oriented random numbers.
 
-## Usage
-### Install
-#### Server
+## Install
+### Server
 `npm i random-walk`
-#### Browser
+### Browser
 ``
-### Example
-#### Server
+## Usage
+### Server
 ```
-const Walk = require('./random-walk')
+const Walk = require('random-walk')
+```
 
+### Browser
+```
+<script>
+```
+
+### Example
+```
 const walk = new Walk
-
 let speed = [{
     speedMin: 1,
     speedMax: 1500
@@ -27,19 +33,21 @@ walk.on("result", result => {
 
 walk.get("walk", speed)
 ```
+> If speed is not defined, defaults to 300ms
 
-#### Browser
+#### Simulate a stream of stock prices for a given base stock price
 ```
-```
-
-#### Example stock price stream
-```
-// Simulate a given stock price
 const stock = new Walk
 
-let base = 20
+let base = 20 // Base stock price
 
-// This function creates a multiplier to apply realistic price changes for the given base stock price
+// Set a variable speed to return results
+let speed = [{
+    speedMin: 1, // milliseconds
+    speedMax: 1500 // milliseconds
+}]
+
+// This function sets a multiplier to apply realistic price changes for the given base stock price
 function getMultiplier(base) {
     let digits = Math.floor(Math.log10(base)) + 1
     return digits == 6 ? 100000
