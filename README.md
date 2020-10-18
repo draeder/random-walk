@@ -7,7 +7,7 @@ Useful for generating sample stock or crypto prices for analysis and testing alg
 ### Server
 `npm i random-walk`
 ### Browser
-``
+`<script src="https://draeder.github.io/random-walk/walk.min.js"></script>`
 ## Usage
 ### Server
 ```
@@ -16,7 +16,7 @@ const Walk = require('random-walk')
 
 ### Browser
 ```
-<script src="https://draeder.github.io/random-walk/walk.min.js"></script>
+const walk = new Walk
 ```
 
 ### Example
