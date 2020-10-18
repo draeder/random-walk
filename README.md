@@ -12,6 +12,7 @@ Useful for generating sample stock or crypto prices for analysis and testing alg
 ### Server
 ```
 const Walk = require('random-walk')
+const walk = new Walk
 ```
 
 ### Browser
@@ -19,10 +20,8 @@ const Walk = require('random-walk')
 const walk = new Walk
 ```
 
-### Example
+#### Example
 ```
-const walk = new Walk
-
 let speed = [{
     speedMin: 1,
     speedMax: 1500
@@ -36,7 +35,7 @@ walk.get("walk", speed)
 ```
 > If speed is not defined, defaults to 300ms
 
-#### Simulate a stream of stock prices for a given base stock price
+##### Simulate a stream of stock prices for a given base stock price
 ```
 const stock = new Walk
 
@@ -48,7 +47,7 @@ let speed = [{
     speedMax: 1500 // milliseconds
 }]
 
-// This function sets a multiplier to apply realistic price changes for the given base stock price
+// This function sets a multiplier to apply realistic price changes for the base stock price
 function getMultiplier(base) {
     let digits = Math.floor(Math.log10(base)) + 1
     return digits == 6 ? 100000
