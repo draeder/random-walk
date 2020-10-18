@@ -22,6 +22,7 @@ const Walk = require('random-walk')
 ### Example
 ```
 const walk = new Walk
+
 let speed = [{
     speedMin: 1,
     speedMax: 1500
