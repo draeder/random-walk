@@ -22,6 +22,7 @@ const walk = new Walk
 
 #### Example
 ```
+// Set a variable speed to return results
 let speed = [{
     speedMin: 1,
     speedMax: 1500
