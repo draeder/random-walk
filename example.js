@@ -1,4 +1,4 @@
-const Walk = require('./random-walk')
+const Walk = require('random-walk')
 
 // Simulate a random walk
 const walk = new Walk

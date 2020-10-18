@@ -16,7 +16,7 @@ const Walk = require('random-walk')
 
 ### Browser
 ```
-<script>
+<script src="https://draeder.github.io/random-walk/walk.min.js"></script>
 ```
 
 ### Example

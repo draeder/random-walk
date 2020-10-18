@@ -35,7 +35,7 @@ var boxMullerRandom = (function () {
         x1, x2, w, z;
 
     if (crypto && typeof crypto.getRandomValues === 'function') {
-        RAND_MAX = Math.pow(2,32) -1//Math.pow(2, 32) - 1;
+        RAND_MAX = Math.pow(2, 32) -1
         array = new Uint32Array(1);
         random = function () {
             crypto.getRandomValues(array);
@@ -68,20 +68,19 @@ var boxMullerRandom = (function () {
 
 function randomWalk(walk, min, max) {
 
-    let points = []
     let value = 0;
 
     (function ontimeout(){
         value += boxMullerRandom()
         
         walk.emit("result", value)
-        setTimeout(ontimeout, speed(min,max) || 300)
+        setTimeout(ontimeout, speed(min,max))
     })()
 
-    return points;
 }
 
 function speed(min, max){
+    if(!min || !max) return 300
     return Math.random() * (max - min) + min
 }
 
