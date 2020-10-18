@@ -11,8 +11,8 @@ Useful for generating sample stock or crypto prices for analysis and testing alg
 ```
 const Walk = require('./random-walk')
 
-// Simulate a random walk
 const walk = new Walk
+
 let speed = [{
     speedMin: 1,
     speedMax: 1500
