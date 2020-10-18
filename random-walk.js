@@ -75,11 +75,8 @@ var boxMullerRandom = (function () {
     }
 }())
 
-function randomWalk(walk, min, max, steps, randFunc) {
-    
-    if (typeof randFunc !== 'function') {
-        randFunc = boxMullerRandom;
-    }
+function randomWalk(walk, min, max) {
+
     let value = 0;
     (function ontimeout(){
         value += boxMullerRandom()
