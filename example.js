@@ -1,15 +1,17 @@
-const { randomBytes } = require('crypto')
-const { number } = require('yargs')
 const Walk = require('./random-walk')
 
 // Simulate a random walk
 const walk = new Walk
+let speed = [{
+    speedMin: 1,
+    speedMax: 1500
+}]
 
 walk.on("result", result => {
-    //console.log(result)
+    console.log(result)
 })
 
-walk.get("walk", [{speedMin: 1, speedMax: 1500}])
+walk.get("walk", speed)
 
 
 // Simulate a given stock price
@@ -35,4 +37,4 @@ stock.on("result", result => {
     console.log(result)
 })
 
-stock.get("walk", [{speedMin: 1, speedMax: 1500}])
+stock.get("walk", speed)

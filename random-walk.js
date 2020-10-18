@@ -69,7 +69,7 @@ var boxMullerRandom = (function () {
 function randomWalk(walk, min, max) {
 
     let points = []
-    let value = 0; //this semicolon is necessary, why VS Code?
+    let value = 0;
 
     (function ontimeout(){
         value += boxMullerRandom()
