@@ -38,8 +38,6 @@ walk.get("walk", speed)
 
 ##### Simulate a stream of stock prices for a given base stock price
 ```
-const stock = new Walk
-
 let base = 20 // Base stock price
 
 // Set a variable speed to return results
