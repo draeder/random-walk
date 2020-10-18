@@ -1,5 +1,5 @@
 # random-walk
-Generate a stream of trend-oriented random numbers using a Box Muller transform. 
+Generate a stream of trend-oriented random numbers using a Box Müller transform. 
 
 Useful for generating sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a stream of trend-oriented random numbers.
 
