@@ -11,13 +11,13 @@ walk.on("result", result => {
     console.log("walk",result)
 })
 
-walk.get("walk", speed)
+//walk.get("walk", speed)
 
 
 // Simulate a given stock price
 const stock = new Walk
 
-let base = 20
+let base = 200
 
 // This function creates a multiplier to apply realistic price changes for the given base stock price
 function getMultiplier(base) {

@@ -31,7 +31,8 @@ Walk.prototype.get = function (event, data) {
     }
 
     if(event == "walk"){
-        randomWalk(walk, min, max)
+        //randomWalk(walk, min, max)
+        generatePlots(walk, min, max)
     }
 }
 
@@ -74,17 +75,41 @@ var boxMullerRandom = (function () {
     }
 }())
 
-function randomWalk(walk, min, max) {
+function randomWalk(steps, randFunc) {
+    steps = steps >>> 0 || 100;
+    if (typeof randFunc !== 'function') {
+        randFunc = boxMullerRandom;
+    }
 
-    let value = 0;
+    var points = [],value = 0
+
+        value += randFunc();
+        points.push(value);
+
+    return points;
+}
+
+function getYValues(walk, points) {
+    return points.map(function (point) {
+        walk.emit("result", point)
+        return point[1];
+    });
+}
+
+let index = 0
+function generatePlots(walk, min, max) {
+    howMany = 1//howMany >>> 0 || 10;
+    var plots = [], index
 
     (function ontimeout(){
-        value += boxMullerRandom()
-        
-        walk.emit("result", value)
+		index += index++
+        plots.push({
+            data: getYValues(walk, randomWalk())
+        });
         setTimeout(ontimeout, speed(min,max))
     })()
 
+    return plots;
 }
 
 function speed(min, max){
