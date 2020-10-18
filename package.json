@@ -1,0 +1,32 @@
+{
+  "name": "random-walk",
+  "version": "0.0.1",
+  "description": "Generate a stream of random walk numbers. Useful for generating sample stock or crypto prices for analysis or testing algo trading applications. ",
+  "main": "random-walk.js",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "events": "^3.2.0",
+    "yargs": "^16.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/draeder/random-walk.git"
+  },
+  "keywords": [
+    "random-walk",
+    "trading",
+    "stocks",
+    "crypto",
+    "market"
+  ],
+  "author": "Daniel Raeder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/draeder/random-walk/issues"
+  },
+  "homepage": "https://github.com/draeder/random-walk#readme"
+}
