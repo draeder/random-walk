@@ -1,6 +1,6 @@
 {
   "name": "random-walk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Generate a stream of trend-oriented random numbers using a Box Muller transform. Useful for generating sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a stream of trend-oriented random numbers.",
   "main": "random-walk.js",
   "dependencies": {
