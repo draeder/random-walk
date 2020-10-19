@@ -77,6 +77,7 @@ function randomWalk(walk, min, max) {
     let value = 0;
     (function ontimeout(){
         value += boxMullerRandom(walk)
+        walk.emit("result", value)
         setTimeout(ontimeout, speed(min,max))
     })()
 }
