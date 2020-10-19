@@ -49,7 +49,7 @@ var boxMullerRandom = (function () {
         
         //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
         random = function(){
-            let normal = rand.normal()
+            let normal = rand.normal(mu=0, sigma=1)
             //console.log(normal())
             return normal()
         }
