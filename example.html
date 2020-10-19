@@ -68,7 +68,10 @@
     // Simulate a given stock price
     const stock = new Walk
     
-    
+    let speed = [{
+    speedMin: 1,
+    speedMax: 1500
+}]
     
     // This function creates a multiplier to apply realistic price changes for the given base stock price
     function getMultiplier(base) {
@@ -84,7 +87,7 @@
     let multiplier = getMultiplier(base)
     
     stock.on("result", result => {
-        result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
+        //result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
         //console.log("stock",result)
         console.log(result)
         array.push(result)
@@ -98,7 +101,7 @@
         Plotly.extendTraces('graph1', update, [0])
     })
     
-    stock.get("walk")
+    stock.get("walk", speed)
     
     
     

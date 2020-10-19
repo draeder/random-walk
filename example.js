@@ -37,4 +37,4 @@ stock.on("result", result => {
     console.log("stock",result)
 })
 
-stock.get("walk")
+stock.get("walk", speed)
