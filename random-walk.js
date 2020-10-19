@@ -43,15 +43,13 @@ var boxMullerRandom = (function () {
         random,
         x1, x2, w, z;
 
-    if (crypto && typeof crypto.getRandomValues === 'function') {
+    if (crypt) {
         RAND_MAX = Math.pow(2, 32) -1
-        array = new Uint32Array(1);
         random = function () {
-            crypto.getRandomValues(array);
-
-            return array[0] / RAND_MAX;
+            return crypt.randomBytes(4).readUInt32BE() / RAND_MAX;
         };
     } else {
+        console.log("got crap")
         random = Math.random;
     }
 
@@ -70,7 +68,6 @@ var boxMullerRandom = (function () {
         }
 
         phase ^= 1;
-
         return z;
     }
 }())
@@ -79,8 +76,7 @@ function randomWalk(walk, min, max) {
 
     let value = 0;
     (function ontimeout(){
-        value += boxMullerRandom()
-        walk.emit("result", value)
+        value += boxMullerRandom(walk)
         setTimeout(ontimeout, speed(min,max))
     })()
 }
