@@ -84,7 +84,7 @@ var boxMullerRandom = (function () {
 
         phase ^= 1;
         //console.log(z)
-        return z;
+        return random();
     }
 }())
 
