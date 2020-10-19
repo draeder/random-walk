@@ -49,9 +49,7 @@ var boxMullerRandom = (function () {
         
         //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
         random = function(){
-            let normal = rand.logNormal(mu=0, sigma=1)
-
-            //console.log(normal())
+            let normal = rand.uniform(min=0,max=1)//rand.normal(mu=0, sigma=1)
             return normal()
         }
         return function () {
@@ -68,8 +66,7 @@ var boxMullerRandom = (function () {
                 z = x2 * w;
             }
     
-            phase ^= 1;
-    
+            phase ^= 1;    
             return z;
         }
 
