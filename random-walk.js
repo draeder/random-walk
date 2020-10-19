@@ -4,6 +4,9 @@ let util = require('util'),
     EventEmitter = require('events')
 const crypt = require('crypto')
 const rand = require('random')
+const seedrandom = require('seedrandom')
+
+rand.use(seedrandom('foobar'))
 
 let crypto = crypt.randomBytes(256, (err, buf) => {
   if (err) throw err;
