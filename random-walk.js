@@ -49,9 +49,8 @@ var boxMullerRandom = (function () {
         
         //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
         let spareValue = NaN
-        random = function(){
-            //let normal = rand.uniform(min=0,max=1)//rand.normal(mu=0, sigma=1)
-            //return normal()
+
+        return function () {
             var u, v, s
 
             if (!isNaN(spareValue)) {
@@ -61,8 +60,8 @@ var boxMullerRandom = (function () {
             }
         
             do {
-                u = rand.uniform(min=0,max=1) * 2 - 1
-                v = rand.uniform(min=0,max=1) * 2 - 1
+                u = rand.float() * 2 - 1
+                v = rand.float() * 2 - 1
                 s = u * u + v * v
             } while (s === 0 || s >= 1)
         
@@ -70,26 +69,7 @@ var boxMullerRandom = (function () {
             spareValue = u * s
         
             return v * s
-
         }
-        return function () {
-            if (!phase) {
-                do {
-                    x1 = 2.0 * random() - 1.0;
-                    x2 = 2.0 * random() - 1.0;
-                    w = x1 * x1 + x2 * x2;
-                } while (w >= 1.0);
-    
-                w = Math.sqrt((-2.0 * Math.log(w)) / w);
-                z = x1 * w;
-            } else {
-                z = x2 * w;
-            }
-    
-            phase ^= 1;    
-            return z;
-        }
-
 }())
 
 function randomWalk(walk, min, max) {
