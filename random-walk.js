@@ -45,10 +45,13 @@ var boxMullerRandom = (function () {
 
     if (crypt) {
         RAND_MAX = Math.pow(2, 32) -1
-        function random() {
+        
+        random = function(){return crypt.randomBytes(4).readUInt32BE() / RAND_MAX}
+        
+        /*function random() {
             const buffer = crypt.randomBytes(4);
             return buffer.readUInt32LE() / (0xffffffff)
-        }
+        }*/
         
         // Generate 10 numbers..
         //console.log(Array.from({ length: 10 }, (v,k) => random()));
@@ -73,7 +76,7 @@ var boxMullerRandom = (function () {
         }
 
         phase ^= 1;
-        console.log(z)
+        //console.log(z)
         return z;
     }
 }())

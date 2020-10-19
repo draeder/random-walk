@@ -33,8 +33,8 @@ function getMultiplier(base) {
 let multiplier = getMultiplier(base)
 
 stock.on("result", result => {
-    //result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
-    //console.log("stock",result)
+    result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
+    console.log("stock",result)
 })
 
 stock.get("walk")
