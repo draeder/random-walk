@@ -6,6 +6,7 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "events": "^3.2.0",
+    "random": "^2.2.0",
     "yargs": "^16.1.0"
   },
   "devDependencies": {},

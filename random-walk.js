@@ -3,6 +3,7 @@ module.exports = Walk
 let util = require('util'),
     EventEmitter = require('events')
 const crypt = require('crypto')
+const rand = require('random')
 
 let crypto = crypt.randomBytes(256, (err, buf) => {
   if (err) throw err;
@@ -46,8 +47,8 @@ var boxMullerRandom = (function () {
     if (crypt) {
         RAND_MAX = Math.pow(2, 32) -1
         
-        random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
-        
+        //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
+        random = function(){return rand.float(min = 0, max = 1)}
         /*function random() {
             const buffer = crypt.randomBytes(4);
             return buffer.readUInt32LE() / (0xffffffff)
