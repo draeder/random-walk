@@ -49,8 +49,9 @@ var boxMullerRandom = (function () {
         
         //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
         random = function(){
-            const normal = rand.float()
-            return normal
+            let normal = rand.normal()
+            console.log(normal())
+            return normal()
         }
         /*function random() {
             const buffer = crypt.randomBytes(4);
@@ -68,7 +69,7 @@ function randomWalk(walk, min, max) {
 
     let value = 0;
     (function ontimeout(){
-        value += boxMullerRandom(walk)
+        value = boxMullerRandom(walk)
         walk.emit("result", value)
         setTimeout(ontimeout, speed(min,max))
     })()
