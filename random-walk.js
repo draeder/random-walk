@@ -64,7 +64,7 @@ var boxMullerRandom = (function () {
                 s = u * u + v * v 
             } while (s === 0 || s >= 1)
         
-            s = Math.sqrt(-2 * Math.log(s) / s) * rand.float()
+            s = Math.sqrt(-2 * Math.log(s) / s) * rand.float() / rand.float()
             spareValue = u * s
         
             return v * s
