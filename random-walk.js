@@ -48,7 +48,7 @@ var boxMullerRandom = (function () {
         RAND_MAX = Math.pow(2, 32) -1
         
         //random = function(){return crypt.randomBytes(16).readUInt32BE() / RAND_MAX}
-        random = function(){return rand.float(min = 0, max = 1)}
+        random = function(){return rand.float(min = 0, max = 1)*rand.float(min = 0, max = 1)}
         /*function random() {
             const buffer = crypt.randomBytes(4);
             return buffer.readUInt32LE() / (0xffffffff)
