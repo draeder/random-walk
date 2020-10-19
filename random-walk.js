@@ -6,8 +6,6 @@ const crypt = require('crypto')
 const rand = require('random')
 const seedrandom = require('seedrandom')
 
-rand.use(seedrandom(crypt.randomBytes(16).readUInt32BE() / (0xffffffff)))
-
 let crypto = crypt.randomBytes(256, (err, buf) => {
   if (err) throw err;
   return buf.toString('hex')
@@ -41,6 +39,7 @@ Walk.prototype.get = function (event, data) {
 }
 
 var boxMullerRandom = (function () {
+    rand.use(seedrandom(crypt.randomBytes(16).readUInt32BE() / (0xffffffff)))
     var phase = 0,
         RAND_MAX,
         array,
