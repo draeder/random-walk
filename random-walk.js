@@ -59,8 +59,8 @@ var boxMullerRandom = (function () {
             }
         
             do {
-                u = (rand.float() / rand.float()) * 2 - 1
-                v = (rand.float() / rand.float()) * 2 - 1
+                u = (rand.float() * rand.float()) * 2 - 1
+                v = (rand.float() * rand.float()) * 2 - 1
                 s = u * u + v * v 
             } while (s === 0 || s >= 1)
         
