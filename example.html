@@ -1,7 +1,7 @@
 <html>
 <head>
     <script src="https://draeder.github.io/simple-harmonic-oscillator/sho.min.js"></script>
-    <script src="https://draeder.github.io/random-walk/walk.min.js"></script>
+    <script src="walk.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     </head>
@@ -13,10 +13,18 @@
     <script>
     
     var time = new Date();
-    let base = 200
+    let params = [{
+        min: 300,
+        max: 300,
+        mean: 400,
+        scale: 10,
+        skew: Math.PI,
+        rnd: Math.random()
+    }]
+
     var data = [{
       x: [time],
-      y: [base],
+      y: [params.mean],
       mode: 'lines',
       line: {color: '#80CAF6'}
     }]
@@ -68,39 +76,22 @@
     
     // Simulate a given stock price
     const stock = new Walk
-    
-    let speed = [{
-        speedMin: 1,
-        speedMax: 100
-    }]
-    
-    // This function creates a multiplier to apply realistic price changes for the given base stock price
-    function getMultiplier(base) {
-        let digits = Math.floor(Math.log10(base)) + 1
-        return digits == 6 ? 100000
-            : digits == 5 ? 10000
-            : digits == 4 ? 1000
-            : digits == 3 ? 100
-            : digits == 2 ? 10
-            : digits == 1 ? 1
-            : 0.01
-    }
-    let multiplier = getMultiplier(base)
 
     stock.on("result", result => {
-        result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
+        //result = Math.abs(base+((result/base)*multiplier)) // Absolute value because stock prices can never be negative
+
         array.push(result)
         sho.get("result", {array}) // send data to get realtime SHO
         var time = new Date();
         var update = {
             x:  [[time]],
-            y: [array]
+            y: [[result]]
         }
 
         Plotly.extendTraces('graph1', update, [0])
     })
 
-    stock.get("walk", speed)
+    stock.get("walk", params)
     
 
     
