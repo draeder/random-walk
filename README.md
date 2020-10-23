@@ -9,25 +9,17 @@ The random numbers used are true random numbers derived from measurements of qua
 ![alt text](https://draeder.github.io/random-walk/src/random-walk.png "Random walk")
 
 ## Install
-### Server
 `npm i random-walk`
-### Browser
-`<script src="https://draeder.github.io/random-walk/walk.min.js"></script>`
 
 ## Usage
-### Server
 ```
 const Walk = require('random-walk')
 const walk = new Walk
 ```
 
-### Browser
-```
-const walk = new Walk
-```
-
 #### Example
 ```
+const Walk = require('random-walk')
 const walk = new Walk
 
 let params = {
