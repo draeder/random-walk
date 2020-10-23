@@ -12,7 +12,6 @@ The random numbers used are true random numbers derived from measurements of qua
 ### Server
 `npm i random-walk`
 ### Browser
-// Not yet tested and may not work at this time
 `<script src="https://draeder.github.io/random-walk/walk.min.js"></script>`
 
 ## Usage
