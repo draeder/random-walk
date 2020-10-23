@@ -1,28 +1,16 @@
 const Walk = require('./random-walk')
 
-// Simulate a random walk
 const walk = new Walk
-let params = [{
-    min: 50,
-    max: 300,
-    mean: 400,
-    scale: 10,
-    skew: 3,
-    rnd: Math.random()
-}]
+
+let params = {
+    rate: 50, // Desired rate in milliseconds. Minimum is 50 (default).
+    type: "positive", // "normal" (default), "positive", "negative"
+    base: 0, // Starting value. Any number >= 0 (default)
+    volatility: 100 // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
+}
 
 walk.on("result", result => {
-    console.log("walk",result)
+    console.log(result)
 })
 
-//walk.get("walk", params)
-
-
-// Simulate a given stock price
-const stock = new Walk
-
-stock.on("result", result => {
-    console.log("stock",result)
-})
-
-stock.get("walk", params)
+walk.get("walk", params)

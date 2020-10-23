@@ -2,9 +2,9 @@ module.exports = Walk
 
 let util = require('util'),
     EventEmitter = require('events')
-let rand = require('random')
-let crypt = require('crypto')
-let seedrandom = require('seedrandom')
+const bent = require('bent')
+const getBuffer = bent('buffer')
+    
 
 function Walk () {
 
@@ -14,131 +14,90 @@ function Walk () {
 
 util.inherits(Walk, EventEmitter);
 
-//Defaults
-let min = 20
-let max = 20
-let mean = 100 // base
-let scale = 2
-let skew = 0.25 // skew
-
-Walk.prototype.get = function (event, data) {    
+Walk.prototype.get = function (event, data) { 
     let walk = this
+    let min = data.rate || 50
 
-    if(data[0].min && data[0].max){
-        min = data[0].min
-        max = data[0].max
-    }
-    if(data[0].mean){
-        mean = data[0].mean
-    }
-    if(data[0].scale){
-        scale = data[0].scale
-    }
-    if(data[0].skew){
-        skew = data[0].skew
-    }
+    min < 50 ? min = 50 : min = min
 
-    if(event == "walk"){
-        //randomWalk(walk, min, max)
-        walker(walk, min, max)
-    }
 
+    setInterval(()=>getRandom(),min)
+    async function getRandom(){
+        try{
+            let buffer = await getBuffer("https://qrng.anu.edu.au/wp-content/plugins/colours-plugin/get_one_binary.php")
+            let integer = parseInt(buffer.toString('utf8'), 2)
+            let float = integer/((2**8)-1)
+            walk.emit("random", float)
+        }
+        catch (error){return console.log(error)}
+    }
+    let array = []
+    walk.on("random", random => {
+        if(array.length == 0){
+            array[0] = random
+        } else {
+            array[1] = random
+        }
+        if(array.length == 2){
+            boxMuller(walk, data, array)
+        }
+    })
 }
-let step = 0
-const randomNormals = (rng) => {
-    let u1 = 0, u2 = 0;
 
-    while (u1 === 0) u1 = rng;
-    while (u2 === 0) u2 = rng;
+let phase = 0
+let x1, x2, w, z, value = 0, points = [], t
 
-    const R = Math.sqrt(-2.0 * Math.log(u1));
-    const D = 2.0 * Math.PI * u2;
-
-    return [R * Math.cos(D), R * Math.sin(D)]
-
-    //return [R * Math.cos(D), R * Math.sin(D)];
-};
-
-const randomSkewNormal = (rng, mean, scale, skew) => {
-    const [u0, v] = randomNormals(rng);
-    if (skew === 0) {
-        return mean + scale * u0;
-    }
-    const c = skew / Math.sqrt(1 + skew * skew); //coefficient
-    const u1 = skew * u0 + Math.sqrt(1 - c * c) * v;
-    const z = u0 >= 0 ? u1 : -u1;
-    return mean + scale * z;
-};
-
-let boxMuller = ()=>{
-    let phase = 0, x1, x2, w, z;
+function boxMuller (walk, data, array){
+    let r = array
     if (!phase) {
-        do {
-            x1 = 2.0 * rand.float() - 1.0;
-            x2 = 2.0 * rand.float() - 1.0;
-            w = x1 * x1 + x2 * x2;
-        } while (w >= 1.0);
-
-        w = Math.sqrt((-2.0 * Math.log(w)) / w);
-        z = x1 * w;
+        x1 = 2.0 * r[0] - 1.0
+        x2 = 2.0 * r[1] - 1.0
+        w = x1 * x1 + x2 * x2
+        if(w>=1.0){
+            w = Math.sqrt((-2.0 * Math.log(w)) / w)
+            z = x1 * w
+        } else {
+            z = x2 * w
+        }
     } else {
-        z = x2 * w;
+        z = x2 * w
     }
 
-    phase ^= 1;
-    return z;
-}
-
-let value = 0
-function randomWalk(steps, randFunc) {
-    steps = steps >>> 0 || 100;
-    if (typeof randFunc !== 'function') {
-        randFunc = boxMuller;
-    }
-
-    var points = [],
-        t;
-
-        value += randFunc();
+    if(z == z){
+        value += z
         points.push([t, value]);
-
-    return points;
+        points.map(function (point) {
+            //walk.emit("result", point[1])
+            calculations(walk, data, point[1])
+        })
+    }
+    
+    phase ^= 1
 }
 
-function getYValues(points) {
-    return points.map(function (point) {
-        return point[1];
-    });
+function calculations(walk, data, result){
+    let type = data.type || "normal"
+    let base = data.base || 0
+    let volatility = data.volatility || 100
+
+    if(base != 0 && volatility != 100){
+        result = base+(result*(base/volatility))
+    } 
+    else if(base != 0){
+        result = base+(result*(base/100))
+    }
+
+    if(type == "normal"){
+        // Normal results
+        result = result
+    }
+    else if (type == "positive"){
+        // Only positive results
+        result = Math.abs(result)
+    } 
+    else if (type == "negative"){
+        // Only negative results
+        result = -Math.abs(result)
+    }
+    walk.emit("result", result)
 }
-
-function walker(walk, min, max) {
-    let value = 0;
-    (function ontimeout(){
-        rand.use(seedrandom(crypt.randomBytes(32).readUInt32BE() / (0xffffffff)))
-        //value = randomSkewNormal(rand.float(),mean,scale,skew)
-        /*let result = function(){
-            let res
-            if(step === 1 && value){
-                res = value[1] * Math.PI
-                value = randomNormals(rand.float())
-            } else if(step === 0 && value){
-                res = value[0] * Math.PI
-            } else {
-                value = randomNormals(rand.float())
-            }
-            return res
-        }()*/
-        result = getYValues(randomWalk())
-        if(result) walk.emit("result", result[0])
-        step == 1 ? step = 0 : step = 1
-        setTimeout(ontimeout, speed(min,max))
-    })()
-}
-
-function speed(min, max){
-    if(!min || !max) return 300
-    return rand.float() * (max - min) + min
-}
-
-
-

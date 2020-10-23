@@ -1,13 +1,11 @@
 {
   "name": "random-walk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate a stream of trend-oriented random numbers using a Box Muller transform. Useful for generating sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a stream of trend-oriented random numbers.",
   "main": "random-walk.js",
   "dependencies": {
-    "crypt": "0.0.2",
-    "events": "^3.2.0",
-    "random": "^2.2.0",
-    "seedrandom": "^3.0.5"
+    "bent": "^7.3.12",
+    "events": "^3.2.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -29,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/draeder/random-walk/issues"
   },
-  "homepage": "https://github.com/draeder/random-walk#readme"
+  "homepage": "https://github.com/draeder/random-walk#readme",
+  "directories": {
+    "test": "tests"
+  }
 }

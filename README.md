@@ -1,15 +1,17 @@
 # random-walk
-NOTE: THIS IS A WORK IN PROGRESS
-
-Generate a stream of trend-oriented random numbers using a Box Müller transform. 
+Generate a stream of trend-oriented random numbers using a Box Müller transform to create a normalized random walk.
 
 Useful for generating sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a stream of trend-oriented random numbers.
+
+The random numbers used are true random numbers derived from measurements of quantum fluctions in a vacuum, provided by [the ANU Quantum Number generator](https://qrng.anu.edu.au). They are currently Uint8, but they will soon be Uint32 for greater precision in an upcoming release.
 
 ## Install
 ### Server
 `npm i random-walk`
 ### Browser
+// Not yet tested and may not work at this time
 `<script src="https://draeder.github.io/random-walk/walk.min.js"></script>`
+
 ## Usage
 ### Server
 ```
@@ -24,48 +26,19 @@ const walk = new Walk
 
 #### Example
 ```
-// Set a variable speed to return results
-let speed = [{
-    speedMin: 1,
-    speedMax: 1500
-}]
+const walk = new Walk
+
+let params = {
+    rate: 50, // Desired rate in milliseconds. Minimum is 50 (default).
+    type: "positive", // "normal" (default), "positive", "negative"
+    base: 0, // Starting value. Any number >= 0 (default)
+    volatility: 100 // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
+}
 
 walk.on("result", result => {
     console.log(result)
 })
 
-walk.get("walk", speed)
+walk.get("walk", params)
 ```
-> If speed is not defined, defaults to 300ms
-
-##### Simulate a stream of stock prices for a given base stock price
-```
-let base = 20 // Base stock price
-
-// Set a variable speed to return results
-let speed = [{
-    speedMin: 1, // milliseconds
-    speedMax: 1500 // milliseconds
-}]
-
-// This function sets a multiplier to apply realistic price changes for the base stock price
-function getMultiplier(base) {
-    let digits = Math.floor(Math.log10(base)) + 1
-    return digits == 6 ? 100000
-         : digits == 5 ? 10000
-         : digits == 4 ? 1000
-         : digits == 3 ? 100
-         : digits == 2 ? 10
-         : digits == 1 ? 1
-         : 0.01
-}
-let multiplier = getMultiplier(base)
-
-stock.on("result", result => {
-    result = Math.abs(base+((result/base)*multiplier))
-    console.log(result)
-})
-
-stock.get("walk", speed)
-
-```
+> The `params` variable and its values are optional
