@@ -5,6 +5,9 @@ Useful for generating sample stock or crypto prices for analysis and testing alg
 
 The random numbers used are true random numbers derived from measurements of quantum fluctions in a vacuum, provided by [the ANU Quantum Number generator](https://qrng.anu.edu.au). They are currently Uint8, but they will soon be Uint32 for greater precision in an upcoming release.
 
+## Example
+![alt text](https://draeder.github.io/random-walk/src/random-walk.png "Random walk")
+
 ## Install
 ### Server
 `npm i random-walk`
