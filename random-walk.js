@@ -3,7 +3,7 @@ module.exports = Walk
 let util = require('util'),
     EventEmitter = require('events')
 const bent = require('bent')
-const getBuffer = bent('buffer')
+const getJSON = bent('json')
     
 
 function Walk () {
@@ -16,21 +16,40 @@ util.inherits(Walk, EventEmitter);
 
 Walk.prototype.get = function (event, data) { 
     let walk = this
-    let min = data.rate || 50
+    let min = data.rate || 5000
 
     min < 50 ? min = 50 : min = min
-
-
-    setInterval(()=>getRandom(),min)
+    setInterval(()=>getRandom(),1000)
+    //getRandom()
+    let qrng = []
     async function getRandom(){
         try{
-            let buffer = await getBuffer("https://qrng.anu.edu.au/wp-content/plugins/colours-plugin/get_one_binary.php")
-            let integer = parseInt(buffer.toString('utf8'), 2)
-            let float = integer/((2**8)-1)
-            walk.emit("random", float)
+            let response = await getJSON("https://qrng.anu.edu.au/API/jsonI.php?length=1024&type=uint16")
+            qrng.push(...response.data)
+            if(qrng.length >=1025) floatUint32(qrng, 0)
         }
         catch (error){return console.log(error)}
     }
+    function floatUint32(qrng, x){
+        if(qrng.length >= 1025){
+            var i,j,temparray,chunk = 2, u1, u2
+            for (i=x,j=qrng.length; i<j; i+=chunk) {
+
+                temparray = qrng.slice(i,i+chunk);
+                u1 = temparray[0]
+                u2 = temparray[1]
+                let float = (((2**16) * u1) + u2) / ((2 ** 32)  - 1)
+                if(i == j){
+                    let x = qrng.length - 2048
+                    floatUint32(qrng, x)
+                }
+                
+                walk.emit("random", float)
+
+            }
+        }
+    }
+
     let array = []
     walk.on("random", random => {
         if(array.length == 0){
