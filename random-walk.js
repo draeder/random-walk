@@ -19,20 +19,25 @@ Walk.prototype.get = function (event, data) {
     let min = data.rate || 5000
 
     min < 50 ? min = 50 : min = min
-    setInterval(()=>getRandom(),1000)
-    //getRandom()
+
+    // Get true quantum random numbers
+    setInterval(()=>getRandom(),1000) // only pull once per second from ANU
+
     let qrng = []
     async function getRandom(){
         try{
             let response = await getJSON("https://qrng.anu.edu.au/API/jsonI.php?length=1024&type=uint16")
             qrng.push(...response.data)
-            if(qrng.length >=512) floatUint32(qrng)
+            if(qrng.length >=2048) {
+                floatUint32(qrng)
+                qrng.shift(qrng.length)
+            }
         }
         catch (error){return console.log(error)}
     }
-    let count = 0
+
+    // Convert to floating point
     function floatUint32(qrng){
-        count += 1
         if(qrng.length >= 2048){
             var i,j,temparray,chunk = 2, u1, u2
             for (i=0,j=qrng.length; i<j; i+=chunk) {
@@ -41,18 +46,19 @@ Walk.prototype.get = function (event, data) {
                 u1 = temparray[0]
                 u2 = temparray[1]
                 let float = (((2**16) * u1) + u2) / ((2 ** 32)  - 1)
-                //clean up array
-                if(i >= 3072){
-                    qrng.shift(qrng.length)
+                
+                //clean up array to manage performance
+                if(i >= 2046){
                     floatUint32(qrng)
                 }
-                //console.log(qrng.length)
+
                 walk.emit("random", float)
 
             }
         }
     }
 
+    // Build the array of size 2 to pass to boxMuller
     let array = []
     walk.on("random", random => {
         if(array.length == 0){
@@ -66,6 +72,8 @@ Walk.prototype.get = function (event, data) {
     })
 }
 
+
+// Get the boxMuller random walk
 let phase = 0
 let x1, x2, w, z, value = 0, points = [], t
 
@@ -89,7 +97,6 @@ function boxMuller (walk, data, array){
         value += z
         points.push([t, value]);
         points.map(function (point) {
-            //walk.emit("result", point[1])
             calculations(walk, data, point[1])
         })
     }
@@ -97,13 +104,14 @@ function boxMuller (walk, data, array){
     phase ^= 1
 }
 
+// Return results based on parameters
 function calculations(walk, data, result){
     let type = data.type || "normal"
     let base = data.base || 0
-    let volatility = data.volatility || 100
+    let scale = data.scale || 100
 
-    if(base != 0 && volatility != 100){
-        result = base+(result*(base/volatility))
+    if(base != 0 && scale != 100){
+        result = base+(result*(base/scale))
     } 
     else if(base != 0){
         result = base+(result*(base/100))

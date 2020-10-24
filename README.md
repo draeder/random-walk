@@ -23,10 +23,9 @@ const Walk = require('random-walk')
 const walk = new Walk
 
 let params = {
-    rate: 50, // Desired rate in milliseconds. Minimum is 50 (default).
-    type: "positive", // "normal" (default), "positive", "negative"
-    base: 0, // Starting value. Any number >= 0 (default)
-    volatility: 100 // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
+    type: "positive", // Desired number type: "normal" (default), "positive", "negative"
+    base: 0, // Starting value: Any number >= 0 (default)
+    scale: 100 // Scale of change from base. 100 is normal (default), > 100 is less volatile, < 100 is more volatile
 }
 
 walk.on("result", result => {
@@ -36,3 +35,9 @@ walk.on("result", result => {
 walk.get("walk", params)
 ```
 > The `params` variable and its values are optional
+
+#TODO
+
+- Add pseudo random option if the QRNG API is unavailable
+  - Make automatic?
+- Add rate controls: normal, min, max, random between min max, random nomralized between min max
