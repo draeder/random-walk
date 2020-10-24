@@ -26,24 +26,27 @@ Walk.prototype.get = function (event, data) {
         try{
             let response = await getJSON("https://qrng.anu.edu.au/API/jsonI.php?length=1024&type=uint16")
             qrng.push(...response.data)
-            if(qrng.length >=1025) floatUint32(qrng, 0)
+            if(qrng.length >=512) floatUint32(qrng)
         }
         catch (error){return console.log(error)}
     }
-    function floatUint32(qrng, x){
-        if(qrng.length >= 1025){
+    let count = 0
+    function floatUint32(qrng){
+        count += 1
+        if(qrng.length >= 2048){
             var i,j,temparray,chunk = 2, u1, u2
-            for (i=x,j=qrng.length; i<j; i+=chunk) {
+            for (i=0,j=qrng.length; i<j; i+=chunk) {
 
                 temparray = qrng.slice(i,i+chunk);
                 u1 = temparray[0]
                 u2 = temparray[1]
                 let float = (((2**16) * u1) + u2) / ((2 ** 32)  - 1)
-                if(i == j){
-                    let x = qrng.length - 2048
-                    floatUint32(qrng, x)
+                //clean up array
+                if(i >= 3072){
+                    qrng.shift(qrng.length)
+                    floatUint32(qrng)
                 }
-                
+                //console.log(qrng.length)
                 walk.emit("random", float)
 
             }
