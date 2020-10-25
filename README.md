@@ -5,7 +5,7 @@ Useful for generating a real-time stream sample stock or crypto prices for analy
 
 The source random numbers are true random numbers derived from measurements of quantum fluctions in a vacuum, provided by [the ANU Quantum Number generator](https://qrng.anu.edu.au). They come in as Uint16, which are then paired as Uint32 and converted to floating point numbes for use in the Box Müller transform.
 
-> Note: the Box Müller transformed numbers are returned very quickly and will likely crash your terminal. You will want to add your own timing as needed for the time being.
+> Note: the Box Müller transformed numbers are returned very quickly and will likely crash your terminal if using console.log. You will want to add your own timing as needed for the time being.
 
 ## Example
 ![alt text](https://draeder.github.io/random-walk/src/random-walk.png "Random walk")
