@@ -3,9 +3,11 @@ Generate a stream of trend-oriented true random numbers using a Box Müller tran
 
 Useful for generating a real-time stream sample stock or crypto prices for analysis and testing algo trading applications, or any other application that needs a real-time stream of trend-oriented random numbers.
 
-The source random numbers are true random numbers derived from measurements of quantum fluctions in a vacuum, provided by [the ANU Quantum Number generator](https://qrng.anu.edu.au). They come in as Uint16, which are then paired as Uint32 and converted to floating point numbes for use in the Box Müller transform.
+The source random numbers are true random numbers derived from measurements of quantum fluctions in a vacuum, provided by [the ANU Quantum Number generator](https://qrng.anu.edu.au). They come in as Uint16 (1024 every 1 second), which are then paired as Uint32 and converted to floating point numbes for use in the Box Müller transform.
 
-> Note: the Box Müller transformed numbers are returned very quickly and will likely crash your terminal if using console.log. You will want to add your own timing as needed for the time being.
+> Note: the Box Müller transformed numbers are returned very quickly and will likely crash your terminal if using console.log. You will want to add your own timing as needed for now.
+
+Please report any issues, questions or comments [here](https://github.com/draeder/random-walk/issues)
 
 ## Example
 ![alt text](https://draeder.github.io/random-walk/src/random-walk.png "Random walk")
@@ -47,7 +49,7 @@ let params = {
 }
 ```
 
-#TODO
+###TODO
 
 - Add pseudo random option if the QRNG API is unavailable
   - Make automatic?
