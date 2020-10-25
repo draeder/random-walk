@@ -49,7 +49,7 @@ let params = {
 }
 ```
 
-###TODO
+### TODO
 
 - Add pseudo random option if the QRNG API is unavailable
   - Make automatic?
