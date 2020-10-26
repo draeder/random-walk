@@ -116,7 +116,7 @@ function calculations(walk, data, result){
     else if(base != 0){
         result = base+(result*(base/100))
     }
-
+    
     if(type == "normal"){
         // Normal results
         result = result
