@@ -3,11 +3,11 @@ const Walk = require('./random-walk')
 const walk = new Walk
 
 let params = {
-    random: "true", // "true" = True random numbers (default), or "psuedo" = psuedo random numbers
-    rate: 5000, // Desired rate in milliseconds. Minimum is 50 (default).
-    type: "positive", // "normal" (default), "positive", "negative"
-    base: 451, // Starting value. Any number >= 0 (default)
-    scale: 500 // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
+    pseudo: false,   // Boolean: false = real random numbers (default), or true = psuedo random numbers
+    rate: {min:50, max:100},      // Desired rate in milliseconds: 100 (default) or {min: 50, max: 100} to randomly vary the rate
+    type: "normal", // "normal" (default), "positive", "negative"
+    base: 100,      // 0 (default). Starting value. Can be any number.
+    scale: 100      // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
 }
 
 walk.on("result", result => {
