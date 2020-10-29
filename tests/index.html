@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <script src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+        <script src='http://localhost:3001/socket.io/socket.io.js'></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <div id="graph1"></div>
+        <div id="graph2"></div>
+    </body>
+    <script>
+        var data = [{
+            x: [Date()],
+            y: [0],
+            mode: 'lines',
+            line: {color: '#80CAF6'}
+        }]
+        
+        Plotly.newPlot('graph1', data);
+
+        var socket = io.connect('http://localhost:3001');
+
+        socket.on("result", function(result) {
+            console.log(result)
+            var time = new Date();
+            var update = {
+                x:  [[time]],
+                y: [[result]]
+            }
+
+            Plotly.extendTraces('graph1', update, [0])
+
+        })
+    </script>
+</html>
