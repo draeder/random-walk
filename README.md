@@ -8,9 +8,9 @@ If you prefer fake random numbers as the foundation, you may also use pseudo-ran
 Please report any issues, questions or comments [here](https://github.com/draeder/random-walk/issues)
 
 ## Example
-### True random
+### True random source numbers
 ![alt text](https://draeder.github.io/random-walk/src/random-walk-qrng.png "Random walk true")
-### Pseudo random
+### Pseudo random source numbers
 ![alt text](https://draeder.github.io/random-walk/src/random-walk-pseudo.png "Random walk pseudo")
 
 ## Install
