@@ -8,7 +8,10 @@ If you prefer fake random numbers as the foundation, you may also use pseudo-ran
 Please report any issues, questions or comments [here](https://github.com/draeder/random-walk/issues)
 
 ## Example
-![alt text](https://draeder.github.io/random-walk/src/random-walk.png "Random walk")
+### True random
+![alt text](https://draeder.github.io/random-walk/src/random-walk-pseudo.png "Random walk pseudo")
+### Pseudo random
+![alt text](https://draeder.github.io/random-walk/src/random-walk-pseudo.png "Random walk pseudo")
 
 ## Install
 `npm i random-walk`

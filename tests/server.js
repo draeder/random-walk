@@ -23,5 +23,5 @@ io.sockets.on('connection', function(socket) {
 
 })
 
-stock.get("walk", {base: 0, type: "positive", scale: 100, rate: {min:1000, max:1000}, pseudo: false})
+stock.get("walk", {base: 411, type: "normal", scale: 1000, rate: {min:1000, max:1000}, pseudo: false})
 app.listen(3001);
