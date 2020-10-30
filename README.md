@@ -9,7 +9,7 @@ Please report any issues, questions or comments [here](https://github.com/draede
 
 ## Example
 ### True random
-![alt text](https://draeder.github.io/random-walk/src/random-walk-pseudo.png "Random walk pseudo")
+![alt text](https://draeder.github.io/random-walk/src/random-walk-qrng.png "Random walk true")
 ### Pseudo random
 ![alt text](https://draeder.github.io/random-walk/src/random-walk-pseudo.png "Random walk pseudo")
 
