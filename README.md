@@ -58,31 +58,31 @@ let params = {
 If `params` is not passed, defaults will be used.
 
 ```
-pseudo:
+pseudo: false // true
 ``` 
 
 Pseudo is boolean and can be `false` for real random numbers (default), or `true` for pseudo random numbers
 
 ```
-rate:
+rate: 100 // any number
 ```
 
 Rate can be any number (default `100`), or an object `{min: 50, max: 100}` to specify min and max which will randomly vary the rate.
 
 ```
-type:
+type: "normal" // "positive", "negative"
 ``` 
 
-Type changes how random-walk returns the numbers. Either `"negative"` for negative numbers only, `"positive"` positive numbers only, or `"normal"` both positive and negative numbers (default)
+Type changes how random-walk returns the numbers. Either `"positive"` for negative numbers only, `"negative"` positive numbers only, or `"normal"` both positive and negative numbers (default)
 
 ```
-base:
+base: 100 // any number, default is 0
 ```
 
 Base is the base number (default `0`), which might also be consered a "mean" or "average" you would like to simulate. You may use any number.
 
 ```
-scale:
+scale: 100 // any number, default is 100
 ```
 
 Scale describes the fraction applied to the random-walk result. `100` means the result will be applied as a percentage. If you would like to increase the "volatility" of the result, decrease the number below 100. If you would like to decrease the "volatility" of the result, increase the number above 100.
