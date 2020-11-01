@@ -28,11 +28,11 @@ const Walk = require('random-walk')
 const walk = new Walk
 
 let params = {
-    pseudo: false,   // Boolean: false = real random numbers (default), or true = psuedo random numbers
-    rate: {min:50, max:100},      // Desired rate in milliseconds: 100 (default) or {min: 50, max: 100} to randomly vary the rate
-    type: "normal", // "normal" (default), "positive", "negative"
-    base: 100,      // 0 (default). Starting value. Can be any number.
-    scale: 100      // 100 is normal (default), > 100 is less volatile, < 100 is more volatile
+    pseudo: false,
+    rate: {min:50, max:100},
+    type: "normal",
+    base: 100,
+    scale: 100
 }
 
 walk.on("result", result => {
@@ -42,10 +42,21 @@ walk.on("result", result => {
 walk.get("walk", params)
 ```
 ##### Params
-The `params` variable is an optional object that can be passed in to change the numbers returned and how quickly they are returned. 
+The `params` object is an optional object that can be passed in to change the numbers returned and how quickly they are returned. 
 
 If `params` is not passed, defaults will be used.
 
+`pseudo` is boolean and can be `false` for real random numbers (default), or `true` for pseudo random numbers
+
+`rate` can be any number, or an object `{min: 50, max: 100}` to specify min and max which will randomly vary the rate. The default is `100`
+
+`type` changes how random-walk returns the numbers. Either `negative` negative numbers only, `positive` positive numbers only, or `normal` both positive and negative numbers (default)
+
+`base` is the base number, which might also be consered a "mean" or "average" you would like to simulate. You may use any number.
+
+`scale` describes the fraction applied to the random-walk result. `100` means the result will be applied as a percentage. If you would like to increase the "volatility" of the result, decrease the number below 100. If you would like to decrease the "volatility" of the result, increase the number above 100.
+
+###### Example
 ```
 let params = {
     pseudo: false,   // Boolean: false = real random numbers (default), or true = psuedo random numbers
