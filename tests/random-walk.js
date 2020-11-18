@@ -40,7 +40,6 @@ Walk.prototype.get = function (event, data) {
             // Get new Uint16 array of 1024
             let response = await getJSON("https://qrng.anu.edu.au/API/jsonI.php?length=1024&type=uint16")
             qrng.push(...response.data)
-
             // create pairs of Uint16
             let randomPairs = qrng.reduce(function(result, value, index, array) {
                 if (index % 2 === 0)
@@ -54,11 +53,14 @@ Walk.prototype.get = function (event, data) {
             })
 
             // Clean up arrays
+            if(qrng.length >= 2048){
+                qrng=qrng.slice(-1024)
+            }
             if(randomPairs.length >= 2048) {
-                randomPairs.shift(1024)
+                randomPairs.slice(-1024)
             }
             if(floats.length >= 2048){
-                floats.shift(1024)
+                floats.slice(-1024)
             }
 
         }
