@@ -54,13 +54,13 @@ Walk.prototype.get = function (event, data) {
 
             // Clean up arrays
             if(qrng.length >= 2048){
-                qrng=qrng.slice(-1024)
+                qrng = qrng.slice(-1024)
             }
             if(randomPairs.length >= 2048) {
-                randomPairs.slice(-1024)
+                randomPairs = randomPairs.slice(-1024)
             }
             if(floats.length >= 2048){
-                floats.slice(-1024)
+                floats = floats.slice(-1024)
             }
 
         }
@@ -88,7 +88,7 @@ Walk.prototype.get = function (event, data) {
             random[0] = Math.random()
             random[1] = Math.random()
             boxMuller(random) // pass in pseudo random
-            random.shift()
+            random = random.slice(-1)
         }
         setTimeout(getFloats, speed(min,max));
     }
@@ -124,9 +124,9 @@ Walk.prototype.get = function (event, data) {
             points.map(function (point) {
                 calculations(walk, data, point[1])
                 //console.log(point[1])
-                point.shift() // clean up
+                point = point.slice(-1) // clean up
             })
-            points.shift() // clean up
+            points = points.slice(-1) // clean up
         }
         phase ^= 1
     }
